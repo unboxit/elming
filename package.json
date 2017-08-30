@@ -1,0 +1,14 @@
+{
+  "name": "elming",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "npm run format && elm-make --output=/dev/null --yes",
+    "format": "npm run format:src && npm run format:tests",
+    "format:src": "elm-format --validate src",
+    "format:tests": "elm-format --validate tests",
+    "pretest": "elm-test --add-dependencies tests/elm-package.json",
+    "test": "npm run format:tests && elm-test",
+    "test:coverage": "npm run test -- --report=console",
+    "test:watch": "npm run test -- --watch"
+  }
+}
