@@ -7,8 +7,13 @@
     "format:src": "elm-format --validate src",
     "format:tests": "elm-format --validate tests",
     "pretest": "elm-test --add-dependencies tests/elm-package.json",
-    "test": "npm run format:tests && elm-test",
+    "test": "elm-test",
     "test:coverage": "npm run test -- --report=console",
     "test:watch": "npm run test -- --watch"
+  },
+  "devDependencies": {
+    "elm": "^0.18.0",
+    "elm-format": "^0.6.1-alpha",
+    "elm-test": "^0.18.8"
   }
 }
