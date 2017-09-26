@@ -11,6 +11,7 @@ cache:
     - elm-stuff/build-artifacts
     - elm-stuff/packages
     - sysconfcpus
+    - tests/elm-stuff/build-artifacts
 os:
   - linux
 
@@ -22,7 +23,7 @@ before_install:
 install:
   - node --version
   - npm --version
-  - npm install -g elm@$ELM_VERSION elm-test
+  - npm install -g elm@$ELM_VERSION elm-test elm-format
   - git clone https://github.com/NoRedInk/elm-ops-tooling
   - elm-ops-tooling/with_retry.rb elm package install --yes
   # Faster compile on Travis.
