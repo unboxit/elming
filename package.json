@@ -3,17 +3,27 @@
   "version": "1.0.0",
   "scripts": {
     "build": "elm-make --output=/dev/null --yes",
+    "start:dev": "run-p watch:*",
+    "watch:src": "elm-live src/Main.elm --open --pushstate",
+    "watch:tests": "npm run test -- --watch",
     "format": "npm run format:src && npm run format:tests",
     "format:src": "elm-format --validate src",
     "format:tests": "elm-format --validate tests",
     "pretest": "elm-test --add-dependencies tests/elm-package.json",
     "test": "elm-test",
-    "test:coverage": "npm run test -- --report=console",
     "test:watch": "npm run test -- --watch"
   },
   "devDependencies": {
     "elm": "^0.18.0",
     "elm-format": "^0.6.1-alpha",
-    "elm-test": "^0.18.8"
-  }
+    "elm-live": "^2.7.5",
+    "elm-test": "^0.18.8",
+    "npm-run-all": "^4.1.1",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "format",
+    "build",
+    "test"
+  ]
 }
