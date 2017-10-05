@@ -6,48 +6,58 @@ import Test exposing (..)
 import Example
 
 
-suite : Test
-suite =
-    describe "The Example module"
-        [ describe "Example.palindrome"
-            -- Nest as many descriptions as you like.
-            [ test "has no effect on a palindrome" <|
-                \_ ->
-                    let
-                        str =
-                            "hannah"
-                    in
-                        str
-                            |> Example.palindrome
-                            |> Expect.equal str
-
-            -- Expect.equal is designed to be used in pipeline style, like this.
-            , test "reverses a known string" <|
-                \_ ->
-                    "ABCDEFG"
-                        |> Example.palindrome
-                        |> Expect.equal "GFEDCBA"
-
-            -- fuzz runs the test 100 times with randomly-generated inputs!
-            , fuzz string "restores the original string if you run it again" <|
-                \randomlyGeneratedString ->
-                    randomlyGeneratedString
-                        |> Example.palindrome
-                        |> Example.palindrome
-                        |> Expect.equal randomlyGeneratedString
-            ]
-        ]
+all : Test
+all =
+    describe "Example Test Suite"
+        (List.concat allTests)
 
 
-positiveTest : Test
+allTests : List (List Test)
+allTests =
+    [ palindromeTest
+    , positiveTest
+    , negativeTest
+    ]
+
+
+palindromeTest : List Test
+palindromeTest =
+    [ test "has no effect on a palindrome" <|
+        \_ ->
+            let
+                str =
+                    "hannah"
+            in
+                str
+                    |> Example.palindrome
+                    |> Expect.equal str
+    , test "reverses a known string" <|
+        \_ ->
+            "ABCDEFG"
+                |> Example.palindrome
+                |> Expect.equal "GFEDCBA"
+
+    -- fuzz runs the test 100 times with randomly-generated inputs!
+    , fuzz string "restores the original string if you run it again" <|
+        \randomlyGeneratedString ->
+            randomlyGeneratedString
+                |> Example.palindrome
+                |> Example.palindrome
+                |> Expect.equal randomlyGeneratedString
+    ]
+
+
+positiveTest : List Test
 positiveTest =
-    test "Multiplies positive numbers" <|
+    [ test "Multiplies positive numbers" <|
         \() ->
             Expect.equal (3 * 5) 15
+    ]
 
 
-negativeTest : Test
+negativeTest : List Test
 negativeTest =
-    test "Multiplies negative numbers" <|
+    [ test "Multiplies negative numbers" <|
         \() ->
             Expect.equal ((-3) * (5)) -15
+    ]
